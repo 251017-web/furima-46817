@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # FURIMAトップページ（商品一覧ページ）
+  root to: "items#index"
 end
