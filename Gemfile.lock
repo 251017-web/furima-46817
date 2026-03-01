@@ -147,8 +147,6 @@ GEM
       prism (~> 1.5)
     msgpack (1.8.0)
     mutex_m (0.3.0)
-    mysql2 (0.5.7)
-      bigdecimal
     net-imap (0.6.3)
       date
       net-protocol
@@ -167,6 +165,8 @@ GEM
     parser (3.3.10.2)
       ast (~> 2.4.1)
       racc
+    pg (1.6.3-x86_64-darwin)
+    pg (1.6.3-x86_64-linux)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
@@ -295,7 +295,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
-  mysql2 (~> 0.5)
+  pg (~> 1.5)
   puma (>= 5.0)
   rails (~> 7.1.0)
   rubocop (= 1.71.2)
