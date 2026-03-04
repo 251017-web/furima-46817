@@ -13,7 +13,8 @@ Shipping addresses are separated from purchase records because the address field
 
 ## ER Diagram
 
-The local ER diagram source is available in [docs/er_diagram.md](docs/er_diagram.md).
+- Draw.io source: [docs/er_diagram.drawio](docs/er_diagram.drawio)
+- Mermaid source: [docs/er_diagram.md](docs/er_diagram.md)
 
 ## users
 
