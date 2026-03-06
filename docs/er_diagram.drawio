@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" modified="2026-03-04T00:00:00.000Z" agent="Codex" version="24.7.17">
+  <diagram id="furima-er" name="Page-1">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="users" value="users&#xa;----------------&#xa;id (PK)&#xa;nickname&#xa;email (UNIQUE)&#xa;encrypted_password&#xa;last_name&#xa;first_name&#xa;last_name_kana&#xa;first_name_kana&#xa;birth_date&#xa;created_at&#xa;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="250" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="items" value="items&#xa;----------------&#xa;id (PK)&#xa;name&#xa;description&#xa;category_id&#xa;status_id&#xa;shipping_fee_status_id&#xa;prefecture_id&#xa;scheduled_delivery_id&#xa;price&#xa;user_id (FK)&#xa;created_at&#xa;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="390" y="40" width="280" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="orders" value="orders&#xa;----------------&#xa;id (PK)&#xa;user_id (FK)&#xa;item_id (FK, UNIQUE)&#xa;created_at&#xa;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="390" y="420" width="280" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="addresses" value="addresses&#xa;----------------&#xa;id (PK)&#xa;postal_code&#xa;prefecture_id&#xa;city&#xa;house_number&#xa;building_name&#xa;phone_number&#xa;order_id (FK)&#xa;created_at&#xa;updated_at" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="420" width="250" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-users-items" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=none;startArrow=none;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="users" target="items">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-users-orders" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=none;startArrow=none;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="users" target="orders">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-items-orders" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=none;startArrow=none;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="items" target="orders">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-orders-addresses" value="1:1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=none;startArrow=none;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="orders" target="addresses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
