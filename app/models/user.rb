@@ -19,7 +19,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
-  validates :password,
-            format: { with: VALID_PASSWORD_REGEX },
-            if: -> { password.present? && password.length >= 6 }
+  validates :password, format: { with: VALID_PASSWORD_REGEX }
 end
