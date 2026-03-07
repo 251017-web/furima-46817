@@ -9,7 +9,7 @@ gem "rails", "~> 7.1.0"
 gem "sprockets-rails"
 
 # Use mysql as the database for Active Record
-# gem "mysql2", "~> 0.5"   # ← Renderでは使用しないためコメントアウト
+gem "mysql2", "~> 0.5"   # ← Renderでは使用しないため一時的に有効化
 
 # 本番(Render)用 PostgreSQL
 gem "pg", "~> 1.5"
@@ -49,6 +49,9 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
+  gem 'rspec-rails', '~> 6.1.0'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -64,3 +67,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem "devise", "~> 5.0"
