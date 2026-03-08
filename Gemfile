@@ -68,3 +68,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "devise", "~> 5.0"
+
+gem "active_hash", "~> 4.0"

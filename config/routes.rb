@@ -11,4 +11,5 @@ Rails.application.routes.draw do
 
   # FURIMAトップページ（商品一覧ページ）
   root to: "items#index"
+  resources :items, only: [:index, :new, :create]
 end
