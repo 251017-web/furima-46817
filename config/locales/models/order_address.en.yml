@@ -1,0 +1,13 @@
+en:
+  activemodel:
+    attributes:
+      order_address:
+        user_id: "User"
+        item_id: "Item"
+        post_code: "Postal code"
+        prefecture_id: "Prefecture"
+        city: "City"
+        block: "Addresses"
+        building: "Building"
+        phone_number: "Phone number"
+        token: "Token"
