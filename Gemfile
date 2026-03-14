@@ -52,6 +52,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.1.0'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -70,3 +71,5 @@ end
 gem "devise", "~> 5.0"
 
 gem "active_hash", "~> 4.0"
+
+gem "payjp"

@@ -51,6 +51,8 @@ class ItemsController < ApplicationController
   end
 
   def redirect_if_not_owner
-    redirect_to root_path unless current_user.id == @item.user_id
+    return unless current_user.id != @item.user_id || @item.order.present?
+
+    redirect_to root_path
   end
 end
