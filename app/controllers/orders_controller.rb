@@ -4,12 +4,15 @@ class OrdersController < ApplicationController
   before_action :check_permission, only: [:index, :create]
 
   def index
-    @order_address = OrderAddress.new
+    @order_address = build_order_address_from_flash || OrderAddress.new
   end
 
   def create
     @order_address = OrderAddress.new(order_params)
-    return render :index, status: :unprocessable_entity unless @order_address.valid?
+    unless @order_address.valid?
+      stash_order_address_errors
+      return render :index, status: :unprocessable_entity
+    end
 
     charge = pay_item
 
@@ -17,14 +20,17 @@ class OrdersController < ApplicationController
       redirect_to root_path
     else
       refund_charge(charge)
+      stash_order_address_errors
       render :index, status: :unprocessable_entity
     end
   rescue Payjp::PayjpError
     @order_address.errors.add(:base, '決済に失敗しました')
+    stash_order_address_errors
     render :index, status: :unprocessable_entity
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
     refund_charge(charge) if charge
     @order_address.errors.add(:base, '商品はすでに購入されています')
+    stash_order_address_errors
     render :index, status: :unprocessable_entity
   end
 
@@ -60,5 +66,24 @@ class OrdersController < ApplicationController
       card: @order_address.token,
       currency: 'jpy'
     )
+  end
+
+  def stash_order_address_errors
+    flash[:order_address_attributes] = order_params.except(:token, :user_id, :item_id).to_h
+    flash[:order_address_errors] = @order_address.errors.to_hash(true)
+  end
+
+  def build_order_address_from_flash
+    attributes = flash[:order_address_attributes]
+    errors = flash[:order_address_errors]
+    return unless attributes || errors
+
+    order_address = OrderAddress.new(attributes || {})
+    Array(errors).each do |_key, messages|
+      Array(messages).each do |message|
+        order_address.errors.add(:base, message)
+      end
+    end
+    order_address
   end
 end
