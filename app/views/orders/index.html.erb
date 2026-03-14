@@ -36,7 +36,7 @@
     <%= render 'shared/error_messages', model: f.object %>
 
     <div class='credit-card-form'>
-      <h1 class='info-input-haedline'>
+      <h1 class='info-input-headline'>
         クレジットカード情報入力
       </h1>
       <div class="form-group">
@@ -44,7 +44,10 @@
           <label class="form-text">カード情報</label>
           <span class="indispensable">必須</span>
         </div>
-        <div id="number-form" class="input-default"></div>
+        <div class="input-default payjp-input-wrap" id="number-form-wrap">
+          <div id="number-form"></div>
+          <span class="payjp-placeholder-text">カード番号</span>
+        </div>
         <div class='available-card'>
           <%= image_tag 'card-visa.gif', class: 'card-logo'%>
           <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
@@ -58,7 +61,10 @@
           <span class="indispensable">必須</span>
         </div>
         <div class='input-expiration-date-wrap'>
-          <div id="expiry-form" class="input-default"></div>
+          <div class="input-default payjp-input-wrap" id="expiry-form-wrap">
+            <div id="expiry-form"></div>
+            <span class="payjp-placeholder-text">月 / 年</span>
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -66,7 +72,10 @@
           <label class="form-text">セキュリティコード</label>
           <span class="indispensable">必須</span>
         </div>
-        <div id="cvc-form" class="input-default"></div>
+        <div class="input-default payjp-input-wrap" id="cvc-form-wrap">
+          <div id="cvc-form"></div>
+          <span class="payjp-placeholder-text">CVC</span>
+        </div>
       </div>
       <p id="card-error-message" class="error-message"></p>
     </div>
@@ -74,7 +83,7 @@
     
 
     <div class='shipping-address-form'>
-      <h1 class='info-input-haedline'>
+      <h1 class='info-input-headline'>
         配送先入力
       </h1>
       <div class="form-group">

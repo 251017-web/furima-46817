@@ -3,12 +3,40 @@ const pay = () => {
     if (!publicKey) return;
     const form = document.getElementById('charge-form');
     if (!form) return;
+    if (form.dataset.payjpInitialized === 'true') return;
+    form.dataset.payjpInitialized = 'true';
     const errorArea = document.getElementById('card-error-message');
     const showError = (message) => {
         if (errorArea) errorArea.textContent = message;
     };
     const clearError = () => {
         if (errorArea) errorArea.textContent = '';
+    };
+    const submitWithoutToken = () => {
+        form.dataset.skipPayjp = 'true';
+        form.requestSubmit();
+    };
+    const syncPlaceholder = (element, wrapperId) => {
+        const wrapper = document.getElementById(wrapperId);
+        if (!wrapper) return;
+
+        if (typeof element.on !== 'function') return;
+
+        element.on('focus', () => {
+            wrapper.classList.add('is-focused');
+        });
+
+        element.on('blur', () => {
+            wrapper.classList.remove('is-focused');
+        });
+
+        element.on('change', (event) => {
+            if (event.empty) {
+                wrapper.classList.remove('has-value');
+            } else {
+                wrapper.classList.add('has-value');
+            }
+        });
     };
     const key = publicKey.getAttribute("content");
     if (!key || key.endsWith('xxxxx')) {
@@ -18,20 +46,46 @@ const pay = () => {
 
     const payjp = Payjp(key);
     const elements = payjp.elements();
-    const numberElement = elements.create('cardNumber');
-    const expiryElement = elements.create('cardExpiry');
-    const cvcElement = elements.create('cardCvc');
+    const style = {
+        base: {
+            fontSize: '16px',
+            color: '#222',
+            '::placeholder': {
+                color: 'transparent'
+            }
+        }
+    };
+    const numberElement = elements.create('cardNumber', {
+        style: style,
+        placeholder: ''
+    });
+    const expiryElement = elements.create('cardExpiry', {
+        style: style,
+        placeholder: ''
+    });
+    const cvcElement = elements.create('cardCvc', {
+        style: style,
+        placeholder: ''
+    });
 
     numberElement.mount('#number-form');
     expiryElement.mount('#expiry-form');
     cvcElement.mount('#cvc-form');
+    syncPlaceholder(numberElement, 'number-form-wrap');
+    syncPlaceholder(expiryElement, 'expiry-form-wrap');
+    syncPlaceholder(cvcElement, 'cvc-form-wrap');
 
     form.addEventListener("submit", (e) => {
+        if (form.dataset.skipPayjp === 'true') {
+            delete form.dataset.skipPayjp;
+            return;
+        }
+
         e.preventDefault();
         clearError();
         payjp.createToken(numberElement).then(function (response) {
             if (response.error) {
-                showError(response.error.message || 'カード情報のトークン化に失敗しました。');
+                submitWithoutToken();
             } else {
                 const token = response.id;
                 const renderDom = document.getElementById("charge-form");
@@ -45,7 +99,7 @@ const pay = () => {
                 document.getElementById("charge-form").submit();
             }
         }).catch(function () {
-            showError('カード情報の送信中にエラーが発生しました。');
+            submitWithoutToken();
         });
     });
 };

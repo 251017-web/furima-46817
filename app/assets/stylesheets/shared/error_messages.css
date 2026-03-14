@@ -2,10 +2,23 @@
   display: flex;
   justify-content: center;
   margin-bottom: 5vh;
+  font-family: "Source Sans Pro", Helvetica, Arial, "YuGothic", "Meiryo", sans-serif;
 }
 
 .error-message {
   font-size: 1.3vw;
   list-style: circle;
   color: rgb(182, 48, 0);
+}
+
+#card-error-message.error-message {
+  margin-top: 15px;
+  font-size: 16px;
+  line-height: 1.4;
+  list-style: none;
+  color: rgb(182, 48, 0);
+}
+
+#card-error-message:empty {
+  display: none;
 }
