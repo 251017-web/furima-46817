@@ -1,10 +1,11 @@
+let payjpInstance = null;
+
 const pay = () => {
     const publicKey = document.querySelector("meta[name='payjp-public-key']");
     if (!publicKey) return;
     const form = document.getElementById('charge-form');
     if (!form) return;
     if (form.dataset.payjpInitialized === 'true') return;
-    form.dataset.payjpInitialized = 'true';
     const errorArea = document.getElementById('card-error-message');
     const showError = (message) => {
         if (errorArea) errorArea.textContent = message;
@@ -44,7 +45,16 @@ const pay = () => {
         return;
     }
 
-    const payjp = Payjp(key);
+    if (typeof Payjp !== 'function') {
+        showError('PAY.JPの読み込みに失敗しました。ページを再読み込みしてください。');
+        return;
+    }
+
+    if (!payjpInstance) {
+        payjpInstance = Payjp(key);
+    }
+
+    const payjp = payjpInstance;
     const elements = payjp.elements();
     const style = {
         base: {
@@ -74,6 +84,7 @@ const pay = () => {
     syncPlaceholder(numberElement, 'number-form-wrap');
     syncPlaceholder(expiryElement, 'expiry-form-wrap');
     syncPlaceholder(cvcElement, 'cvc-form-wrap');
+    form.dataset.payjpInitialized = 'true';
 
     form.addEventListener("submit", (e) => {
         if (form.dataset.skipPayjp === 'true') {
