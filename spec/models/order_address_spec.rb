@@ -105,16 +105,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
 
         expect(@order_address.errors.full_messages).to eq([
-          "Token can't be blank",
-          "Postal code can't be blank",
-          'Postal code is invalid. Enter it as follows (e.g. 123-4567)',
-          "Prefecture can't be blank",
-          "City can't be blank",
-          "Addresses can't be blank",
-          "Phone number can't be blank",
-          'Phone number is too short',
-          'Phone number is invalid. Input only number'
-        ])
+                                                            "Token can't be blank",
+                                                            "Postal code can't be blank",
+                                                            'Postal code is invalid. Enter it as follows (e.g. 123-4567)',
+                                                            "Prefecture can't be blank",
+                                                            "City can't be blank",
+                                                            "Addresses can't be blank",
+                                                            "Phone number can't be blank",
+                                                            'Phone number is too short',
+                                                            'Phone number is invalid. Input only number'
+                                                          ])
       end
 
       it '同じitem_idがすでに購入済みだとsaveできないこと' do

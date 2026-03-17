@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
     return unless attributes || errors
 
     order_address = OrderAddress.new(attributes || {})
-    Array(errors).each do |_key, messages|
+    Array(errors).each_value do |messages|
       Array(messages).each do |message|
         order_address.errors.add(:base, message)
       end
